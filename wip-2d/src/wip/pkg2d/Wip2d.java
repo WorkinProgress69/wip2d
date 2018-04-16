@@ -31,13 +31,15 @@ import org.newdawn.slick.util.ResourceLoader;
  */
 public class Wip2d {
 
-  public static final int DISPLAY_HEIGHT = 480;
-  public static final int DISPLAY_WIDTH = 640;
+  public static final int DISPLAY_HEIGHT = 720;
+  public static final int DISPLAY_WIDTH = 900;
   public static final Logger LOGGER = Logger.getLogger(Wip2d.class.getName());
  
   private int imgSize;
   private int xLoc;
   private int yLoc;
+  Texture background;
+  Texture astro;
  
   static {
     try {
@@ -133,10 +135,18 @@ public class Wip2d {
     //yLoc = Mouse.getY();
   }
  
+  
+//  Texture background = LoadTexture("res/space.png", "PNG");
+//  Texture astro = LoadTexture("res/hotdog.png", "PNG");
   public void render() {
     glClear(GL_COLOR_BUFFER_BIT);
     glLoadIdentity();
-    Texture astro = LoadTexture("res/astronaut.png", "PNG");
+    
+    //Space background image
+    DrawBackgroundTex(background, 0, 0, DISPLAY_WIDTH+900, DISPLAY_HEIGHT+400);
+    
+    
+    //Astronaut image
     DrawQuadTex(astro, xLoc, yLoc, imgSize, imgSize);
         
         
@@ -168,6 +178,12 @@ public class Wip2d {
   }
  
   public void run() {
+      glEnable(GL_BLEND);
+glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    background = LoadTexture("res/space.png", "PNG");
+    astro = LoadTexture("res/hotdog.png", "PNG");
+      
     while(!Display.isCloseRequested() && !Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
       if(Display.isVisible()) {
         processKeyboard();
@@ -226,6 +242,8 @@ public class Wip2d {
 //      glVertex2f(width, height);
 //      glTexCoord2f(0, 1);
 //      glVertex2f(0, height);
+    
+    
       
     glTexCoord2f(0, 1);
     glVertex2f(0, 0);
@@ -240,6 +258,26 @@ public class Wip2d {
       glEnd();
       glLoadIdentity();
       
+  }
+  
+  
+  //Takes in a Texture object and draws it to the display
+  public static void DrawBackgroundTex(Texture tex, float x, float y, float width, float height) {
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        tex.bind();
+        glTranslatef(x, y, 0);
+        glBegin(GL_QUADS);
+        glTexCoord2f(0, 0);
+        glVertex2f(0, 0);
+        glTexCoord2f(1, 0);
+        glVertex2f(width, 0);
+        glTexCoord2f(1, 1);
+        glVertex2f(width, height);
+        glTexCoord2f(0, 1);
+        glVertex2f(0, height);
+        glEnd();      
+        glEnd();
+        glLoadIdentity();      
   }
   
     

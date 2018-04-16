@@ -33812,3 +33812,167 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 </log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2018-04-16T02:12:22</date>
+  <millis>1523862742414</millis>
+  <sequence>0</sequence>
+  <logger>wip.pkg2d.Wip2d</logger>
+  <level>SEVERE</level>
+  <class>wip.pkg2d.Wip2d</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>java.lang.RuntimeException: No OpenGL context found in the current thread.</message>
+  <exception>
+    <message>java.lang.RuntimeException: No OpenGL context found in the current thread.</message>
+    <frame>
+      <class>org.lwjgl.opengl.GLContext</class>
+      <method>getCapabilities</method>
+      <line>124</line>
+    </frame>
+    <frame>
+      <class>org.lwjgl.opengl.GL11</class>
+      <method>glGetError</method>
+      <line>1299</line>
+    </frame>
+    <frame>
+      <class>org.newdawn.slick.opengl.renderer.ImmediateModeOGLRenderer</class>
+      <method>glGetError</method>
+      <line>384</line>
+    </frame>
+    <frame>
+      <class>org.newdawn.slick.opengl.InternalTextureLoader</class>
+      <method>getTexture</method>
+      <line>249</line>
+    </frame>
+    <frame>
+      <class>org.newdawn.slick.opengl.InternalTextureLoader</class>
+      <method>getTexture</method>
+      <line>200</line>
+    </frame>
+    <frame>
+      <class>org.newdawn.slick.opengl.TextureLoader</class>
+      <method>getTexture</method>
+      <line>64</line>
+    </frame>
+    <frame>
+      <class>org.newdawn.slick.opengl.TextureLoader</class>
+      <method>getTexture</method>
+      <line>24</line>
+    </frame>
+    <frame>
+      <class>wip.pkg2d.Wip2d</class>
+      <method>LoadTexture</method>
+      <line>219</line>
+    </frame>
+    <frame>
+      <class>wip.pkg2d.Wip2d</class>
+      <method>&lt;init&gt;</method>
+      <line>137</line>
+    </frame>
+    <frame>
+      <class>wip.pkg2d.Wip2d</class>
+      <method>main</method>
+      <line>60</line>
+    </frame>
+  </exception>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
