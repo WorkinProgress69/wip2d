@@ -38,6 +38,7 @@ public class Wip2d {
   private int imgSize;
   private int xLoc;
   private int yLoc;
+  private int imgZ;
   Texture background;
   Texture astro;
  
@@ -77,6 +78,7 @@ public class Wip2d {
     imgSize = 100;
     xLoc = 0;
     yLoc = 0;
+    imgZ = 0;
   }
  
   public void create() throws LWJGLException {
@@ -128,6 +130,15 @@ public class Wip2d {
     if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
       ++xLoc;
     }
+    
+    //Rotation left and right
+    if(Keyboard.isKeyDown(Keyboard.KEY_Z)) {
+      --imgZ;
+    }
+    if(Keyboard.isKeyDown(Keyboard.KEY_X)) {
+      ++imgZ;
+    }
+    
   }
  
   public void processMouse() {
@@ -147,20 +158,7 @@ public class Wip2d {
     
     
     //Astronaut image
-    DrawQuadTex(astro, xLoc, yLoc, imgSize, imgSize);
-        
-        
-    //Draw a basic square    
-//    glTranslatef(squareX,squareY,0.0f);
-//    glRotatef(squareZ,0.0f,0.0f,1.0f);
-//    glTranslatef(-(squareSize >> 1),-(squareSize >> 1),0.0f);
-//    glColor3f(0.0f,0.5f,0.5f);
-//    glBegin(GL_QUADS);
-//      glTexCoord2f(0.0f,0.0f); glVertex2f(0.0f,0.0f);
-//      glTexCoord2f(1.0f,0.0f); glVertex2f(squareSize,0.0f);
-//      glTexCoord2f(1.0f,1.0f); glVertex2f(squareSize,squareSize);
-//      glTexCoord2f(0.0f,1.0f); glVertex2f(0.0f,squareSize);
-//    glEnd();
+    DrawQuadTex(astro, xLoc, yLoc, imgSize, imgSize, imgZ);
   }
  
   public void resizeGL() {
@@ -178,8 +176,8 @@ public class Wip2d {
   }
  
   public void run() {
-      glEnable(GL_BLEND);
-glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     background = LoadTexture("res/space.png", "PNG");
     astro = LoadTexture("res/hotdog.png", "PNG");
@@ -229,39 +227,28 @@ glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   }
   
   //Takes in a Texture object and draws it to the display
-  public static void DrawQuadTex(Texture tex, float x, float y, float width, float height) {
-      GL11.glEnable(GL11.GL_TEXTURE_2D);
-      tex.bind();
-      glTranslatef(x, y, 0);
-      glBegin(GL_QUADS);
-//      glTexCoord2f(0, 0);
-//      glVertex2f(0, 0);
-//      glTexCoord2f(1, 0);
-//      glVertex2f(width, 0);
-//      glTexCoord2f(1, 1);
-//      glVertex2f(width, height);
-//      glTexCoord2f(0, 1);
-//      glVertex2f(0, height);
+  public static void DrawQuadTex(Texture tex, int x, int y, int width, int height, int rot) {
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        tex.bind();
+        glTranslatef(x, y, 0);
+        glRotatef(rot,0.0f,0.0f,1.0f);
+        glBegin(GL_QUADS);    
     
-    
+        glTexCoord2f(0, 1);
+        glVertex2f(0, 0);
+        glTexCoord2f(1, 1);
+        glVertex2f(width, 0);
+        glTexCoord2f(1, 0);
+        glVertex2f(width, height);
+        glTexCoord2f(0, 0);
+        glVertex2f(0, height);
+        glEnd();
       
-    glTexCoord2f(0, 1);
-    glVertex2f(0, 0);
-    glTexCoord2f(1, 1);
-    glVertex2f(width, 0);
-    glTexCoord2f(1, 0);
-    glVertex2f(width, height);
-    glTexCoord2f(0, 0);
-    glVertex2f(0, height);
-    glEnd();
-      
-      glEnd();
-      glLoadIdentity();
-      
+        glLoadIdentity(); 
   }
   
   
-  //Takes in a Texture object and draws it to the display
+  //Takes in a Texture object and draws it to the display as background
   public static void DrawBackgroundTex(Texture tex, float x, float y, float width, float height) {
         GL11.glEnable(GL11.GL_TEXTURE_2D);
         tex.bind();
