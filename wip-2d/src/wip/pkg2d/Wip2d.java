@@ -5,10 +5,12 @@
  */
 package wip.pkg2d;
 
+
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.util.glu.GLU.*;
  
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,6 +19,11 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import org.lwjgl.opengl.GL11;
+
+import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureLoader;
+import org.newdawn.slick.util.ResourceLoader;
 
 /**
  *
@@ -24,14 +31,13 @@ import org.lwjgl.opengl.DisplayMode;
  */
 public class Wip2d {
 
-    public static final int DISPLAY_HEIGHT = 480;
+  public static final int DISPLAY_HEIGHT = 480;
   public static final int DISPLAY_WIDTH = 640;
   public static final Logger LOGGER = Logger.getLogger(Wip2d.class.getName());
  
-  private int squareSize;
-  private int squareX;
-  private int squareY;
-  private int squareZ;
+  private int imgSize;
+  private int xLoc;
+  private int yLoc;
  
   static {
     try {
@@ -46,10 +52,10 @@ public class Wip2d {
     Wip2d main = null;
     try {
       System.out.println("Keys:");
-      System.out.println("down  - Shrink");
-      System.out.println("up    - Grow");
-      System.out.println("left  - Rotate left");
-      System.out.println("right - Rotate right");
+      System.out.println("down  - Fly down");
+      System.out.println("up    - Fly up");
+      System.out.println("left  - Fly left");
+      System.out.println("right - Fly right");
       System.out.println("esc   - Exit");
       main = new Wip2d();
       main.create();
@@ -66,10 +72,9 @@ public class Wip2d {
   }
  
   public Wip2d() {
-    squareSize = 100;
-    squareX = 0;
-    squareY = 0;
-    squareZ = 0;
+    imgSize = 100;
+    xLoc = 0;
+    yLoc = 0;
   }
  
   public void create() throws LWJGLException {
@@ -106,43 +111,46 @@ public class Wip2d {
   }
  
   public void processKeyboard() {
-    //Square's Size
+    //Location up and down
     if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
-      --squareSize;
+      --yLoc;
     }
     if(Keyboard.isKeyDown(Keyboard.KEY_UP)) {
-      ++squareSize;
+      ++yLoc;
     }
  
-    //Square's Z
+    //Location left and right
     if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-      ++squareZ;
+      --xLoc;
     }
     if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-      --squareZ;
+      ++xLoc;
     }
   }
  
   public void processMouse() {
-    squareX = Mouse.getX();
-    squareY = Mouse.getY();
+    //xLoc = Mouse.getX();
+    //yLoc = Mouse.getY();
   }
  
   public void render() {
     glClear(GL_COLOR_BUFFER_BIT);
     glLoadIdentity();
- 
-    //Draw a basic square
-    glTranslatef(squareX,squareY,0.0f);
-    glRotatef(squareZ,0.0f,0.0f,1.0f);
-    glTranslatef(-(squareSize >> 1),-(squareSize >> 1),0.0f);
-    glColor3f(0.0f,0.5f,0.5f);
-    glBegin(GL_QUADS);
-      glTexCoord2f(0.0f,0.0f); glVertex2f(0.0f,0.0f);
-      glTexCoord2f(1.0f,0.0f); glVertex2f(squareSize,0.0f);
-      glTexCoord2f(1.0f,1.0f); glVertex2f(squareSize,squareSize);
-      glTexCoord2f(0.0f,1.0f); glVertex2f(0.0f,squareSize);
-    glEnd();
+    Texture astro = LoadTexture("res/astronaut.png", "PNG");
+    DrawQuadTex(astro, xLoc, yLoc, imgSize, imgSize);
+        
+        
+    //Draw a basic square    
+//    glTranslatef(squareX,squareY,0.0f);
+//    glRotatef(squareZ,0.0f,0.0f,1.0f);
+//    glTranslatef(-(squareSize >> 1),-(squareSize >> 1),0.0f);
+//    glColor3f(0.0f,0.5f,0.5f);
+//    glBegin(GL_QUADS);
+//      glTexCoord2f(0.0f,0.0f); glVertex2f(0.0f,0.0f);
+//      glTexCoord2f(1.0f,0.0f); glVertex2f(squareSize,0.0f);
+//      glTexCoord2f(1.0f,1.0f); glVertex2f(squareSize,squareSize);
+//      glTexCoord2f(0.0f,1.0f); glVertex2f(0.0f,squareSize);
+//    glEnd();
   }
  
   public void resizeGL() {
@@ -183,12 +191,56 @@ public class Wip2d {
   }
  
   public void update() {
-    if(squareSize < 5) {
-      squareSize = 5;
+    if(imgSize < 5) {
+      imgSize = 5;
     }
-    else if(squareSize >= DISPLAY_HEIGHT) {
-      squareSize = DISPLAY_HEIGHT;
+    else if(imgSize >= DISPLAY_HEIGHT) {
+      imgSize = DISPLAY_HEIGHT;
     }
   }
+  
+  //Takes in a path to an image and it's type
+  //Returns a Texture object
+  public static Texture LoadTexture(String path, String fileType){
+      Texture tex = null;
+      InputStream in = ResourceLoader.getResourceAsStream(path);
+        try {
+            tex = TextureLoader.getTexture(fileType, in);
+        } catch (IOException ex) {
+            Logger.getLogger(Wip2d.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      return tex;
+  }
+  
+  //Takes in a Texture object and draws it to the display
+  public static void DrawQuadTex(Texture tex, float x, float y, float width, float height) {
+      GL11.glEnable(GL11.GL_TEXTURE_2D);
+      tex.bind();
+      glTranslatef(x, y, 0);
+      glBegin(GL_QUADS);
+//      glTexCoord2f(0, 0);
+//      glVertex2f(0, 0);
+//      glTexCoord2f(1, 0);
+//      glVertex2f(width, 0);
+//      glTexCoord2f(1, 1);
+//      glVertex2f(width, height);
+//      glTexCoord2f(0, 1);
+//      glVertex2f(0, height);
+      
+    glTexCoord2f(0, 1);
+    glVertex2f(0, 0);
+    glTexCoord2f(1, 1);
+    glVertex2f(width, 0);
+    glTexCoord2f(1, 0);
+    glVertex2f(width, height);
+    glTexCoord2f(0, 0);
+    glVertex2f(0, height);
+    glEnd();
+      
+      glEnd();
+      glLoadIdentity();
+      
+  }
+  
     
 }
